@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask((MainActivity.this)).execute("https://api.myjson.com/bins/3527y");
+                new JSONTask((MainActivity.this)).execute("https://api.myjson.com/bins/2whku");
             }
 
         });
@@ -153,12 +153,16 @@ public class MainActivity extends AppCompatActivity {
             String finalJSON=buffer.toString();
 
             JSONObject parentObject=new JSONObject(finalJSON);
-            JSONArray parentArray=parentObject.getJSONArray("movies");
-           // StringBuffer finalBufferedData=new StringBuffer();
-            JSONObject finalObject=parentArray.getJSONObject(0);
-            String movieName=finalObject.getString("movie");
-            int year=finalObject.getInt("year");
-            return movieName+"-"+year;
+            JSONArray parentArray = parentObject.getJSONArray("movies");
+            StringBuffer finalBufferedData=new StringBuffer();
+            for(int i=0;i<parentArray.length();i++)
+            {
+                JSONObject finalObject=parentArray.getJSONObject(i);
+                String movieName=finalObject.getString("movie");
+                int year=finalObject.getInt("year");
+                finalBufferedData.append(movieName+"-"+year+"\n");
+            }
+            return finalBufferedData.toString();
 
         }
         catch(MalformedURLException e)
