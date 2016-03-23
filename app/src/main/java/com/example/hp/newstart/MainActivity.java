@@ -18,6 +18,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask((MainActivity.this)).execute("httwww.speechify.in/internship/android_task.php");
+                new JSONTask((MainActivity.this)).execute("https://api.myjson.com/bins/3527y");
             }
 
         });
@@ -146,7 +150,16 @@ public class MainActivity extends AppCompatActivity {
             {
                 buffer.append(line);
             }
-            return buffer.toString();
+            String finalJSON=buffer.toString();
+
+            JSONObject parentObject=new JSONObject(finalJSON);
+            JSONArray parentArray=parentObject.getJSONArray("movies");
+           // StringBuffer finalBufferedData=new StringBuffer();
+            JSONObject finalObject=parentArray.getJSONObject(0);
+            String movieName=finalObject.getString("movie");
+            int year=finalObject.getInt("year");
+            return movieName+"-"+year;
+
         }
         catch(MalformedURLException e)
         {
@@ -155,8 +168,9 @@ public class MainActivity extends AppCompatActivity {
         catch(IOException e)
         {
             e.printStackTrace();
-        }
-        finally {
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
             if(connection!=null)
                 connection.disconnect();
 
