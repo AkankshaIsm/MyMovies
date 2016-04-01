@@ -13,7 +13,7 @@ public class MovieModel {
     private String director;
     private String story;
     private String image;
-    private List<Cast> castList;
+    private List<Cast> castList; // Bcz cast list is another array of json objects
 
     public int getYear() {
         return year;
