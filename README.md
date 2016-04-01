@@ -1,5 +1,8 @@
-# MyMovies
-Description of My favorite movies
+## MyMovies
+ ![imageicon](https://raw.githubusercontent.com/AkankshaIsm/MyMovies/master/movieapp.PNG)
+ 
+ Description of My favorite movies
 - Uses Json parsing
 - AsyncTask
-- Universal Image Loader
+- Univeral Image Loader
+
